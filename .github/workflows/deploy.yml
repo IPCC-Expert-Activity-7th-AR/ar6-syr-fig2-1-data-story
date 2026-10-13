@@ -48,9 +48,9 @@ jobs:
       - name: Build the JupyterLite site
         shell: bash -l {0}
         run: |
+          # the specta addon adds the /specta/ app automatically
           jupyter lite build --contents content --output-dir dist \
-            --XeusAddon.environment_file=environment.yml \
-            --LiteBuildConfig.apps=lab --LiteBuildConfig.apps=notebooks --LiteBuildConfig.apps=specta
+            --XeusAddon.environment_file=environment.yml
           # NOTE: jupyter-lite.json in the repo root is picked up by the build and merged
           # with the generated config (federated extensions, xeus kernels); do not overwrite it.
           touch dist/.nojekyll

@@ -14,6 +14,7 @@ urllib on CPython) and falls back to the bundled copy, logging the source.
 """
 import argparse
 import pathlib
+import re
 
 import nbformat as nbf
 
@@ -37,8 +38,32 @@ nb.metadata.update(
 CELLS = []
 
 
+DOI_RE = re.compile(r"(?<![\w/\[(])(10\.\d{4,9}/[A-Za-z0-9._\-/]*[A-Za-z0-9])")
+LINKED_DOI_RE = re.compile(r"\[(10\.\d{4,9}/[^\]]+)\]\((https?://doi\.org/[^)]+)\)")
+URL_RE = re.compile(
+    r"(?<![\w/\[(@])((?:www\.)?(?:github\.com|wdc-climate\.de|interactive-atlas\.ipcc\.ch|sedac\.ciesin\.columbia\.edu|"
+    r"ipcc-browser\.ipcc-data\.org|ipcc-data\.org|catalogue\.ceda\.ac\.uk|dap\.ceda\.ac\.uk|gml\.noaa\.gov|scrippsco2\.ucsd\.edu|"
+    r"agage\.mit\.edu|edgar\.jrc\.ec\.europa\.eu|zenodo\.org|ipcc\.ch)(?:/[^\s)\]|`*,;]*[^\s)\]|`*,;.])?)")
+
+
+def short_doi(d):
+    m = re.fullmatch(r"(10\.5285/[0-9a-f]{8})[0-9a-f]{24}", d)
+    return m.group(1) + "…" if m else d
+
+
+def linkify(text):
+    """Bare DOIs / data-portal URLs -> markdown links (outside code spans); long DOI link labels shortened."""
+    parts = text.split("`")
+    for i in range(0, len(parts), 2):
+        t = LINKED_DOI_RE.sub(lambda m: f"[{short_doi(m.group(1))}]({m.group(2)})", parts[i])
+        t = DOI_RE.sub(lambda m: f"[{short_doi(m.group(1))}](https://doi.org/{m.group(1)})", t)
+        t = URL_RE.sub(lambda m: f"[{m.group(1)}](https://{m.group(1)})", t)
+        parts[i] = t
+    return "`".join(parts)
+
+
 def md(text):
-    CELLS.append(nbf.v4.new_markdown_cell(text.strip("\n")))
+    CELLS.append(nbf.v4.new_markdown_cell(linkify(text.strip("\n"))))
 
 
 def code(src, show_source="No", size="Big"):
@@ -158,6 +183,7 @@ CEDA = {
     "data/final/wgi_spm2/SPM2c_data.csv":                      "spm/spm_02/v20210809/panel_c/SPM2c_data.csv",
     "data/final/wgi_ch2_fig2_5/Data_Figure_2.5.csv":           "ch_02/ch2_fig05/v20221116/Data_Figure_2.5.csv",
     "data/intermediate/wgi_ch2_fig2_4/fig2_4b_data_v2.csv":    "ch_02/ch2_fig04/v20221219/fig2_4b_data_v2.csv",
+    "data/intermediate/wgi_ch2_fig2_4/fig2_4b_2ka_CH4.csv":    "ch_02/ch2_fig04/v20221219/fig2_4_data_Feb24_2021/fig2_4b_2ka_CH4.csv",
     "data/intermediate/wgi_ch2_fig2_11/Figure2_11_panel_a.csv": "ch_02/ch2_fig11/v20220510/Figure2_11_panel_a.csv",
     "data/input/wgi_ch2_fig2_11_input/Figure_2_11c-lower_panel.csv": "ch_02/inputdata_ch2_fig11/v20220428/Figure_2_11c-lower_panel.csv",
     "data/intermediate/wgi_ch3_fig3_8/drivers_observed_warming.csv": "ch_03/ch3_fig08/v20220613/drivers_observed_warming.csv",
@@ -248,7 +274,7 @@ md(r"""
 * **EDGAR v6.0** (EU Joint Research Centre): fossil CO₂, CH₄, N₂O and F-gases by country and sector.
 * **CO₂ from land use (LULUCF)**: mean of three bookkeeping models — **BLUE**, **Houghton & Nassikas**, **OSCAR** (Global Carbon Budget).
 * Harmonised by the WGIII Chapter 2 team into the dataset of **Minx et al. (2021)**, Zenodo
-  [doi:10.5281/zenodo.6483002](https://doi.org/10.5281/zenodo.6483002), code `mcc-apsis/AR6-Emissions-trends-and-drivers`.
+  [doi:10.5281/zenodo.6483002](https://doi.org/10.5281/zenodo.6483002), code at github.com/mcc-apsis/AR6-Emissions-trends-and-drivers.
 
 ### Panel (b): atmospheric observations and ice cores 🔵
 Global mean mole fractions from **NOAA GML**, **Scripps (Mauna Loa, since 1958)**, **CSIRO** (Cape Grim), **AGAGE**, **UCI**;
@@ -309,12 +335,13 @@ For many AR6 WGI figures, intermediate products are archived at **DKRZ** (`IPCC-
 doi:10.26050/WDCC/AR6.IPCC-DDC_AR6_Sup_GSATPr) and at **CEDA**. No record is labelled *intermediate data for Figure 2.1*, but the
 processing chain is visible in four **chapter-level CEDA records** (all citable, CC BY 4.0, now bundled and loaded live):
 
-| Panel | Chapter-level record | What it adds to the chain |
+| Panel | Chapter-level record (CEDA, CC BY 4.0) | What it adds to the chain |
 |---|---|---|
-| (b) | WGI Ch.2 *Data for Figure 2.4* v20221219 — [10.5285/60eeb3cce51a457cb5ee1c577a0c8674](https://doi.org/10.5285/60eeb3cce51a457cb5ee1c577a0c8674) | ice-core CO₂, CH₄, N₂O 0–2000 CE → the pre-1958 part of panel (b) |
-| (c) | WGI Ch.2 *Data for Figure 2.11* v20220510 — [10.5285/f3515388768344bfb2be0521f82388be](https://doi.org/10.5285/f3515388768344bfb2be0521f82388be) | AR6 four-dataset mean 1850–2020 (annual), PAGES 2k, land vs ocean |
-| (d) | WGI Ch.3 *Data for Figure 3.8* v20220613 — [10.5285/bf3d0b8a8c0d4ae19cfd994b6fef4a5c](https://doi.org/10.5285/bf3d0b8a8c0d4ae19cfd994b6fef4a5c) | assessed ranges per driver **and** the lines of evidence behind them (Ribes, Haustein, Gillett, Ch.7; 13 CMIP6 models) |
-| (d), (b) | WGI Ch.7 *Data for Figure 7.6* / *Figure 7.8* v20220721 — [10.5285/0dd364e7…](https://doi.org/10.5285/0dd364e74c254b64bb5fddb5dceed364), [10.5285/5ef11ad1…](https://doi.org/10.5285/5ef11ad195844a59b83393870a5860e1) | effective radiative forcing 1750–2019 by agent → emulator → attributed warming by agent (the SPM.2(c) numbers that scale panel (b)) |
+| (b) | WGI Ch.2 *Data for Figure 2.4* v20221219<br>10.5285/60eeb3cce51a457cb5ee1c577a0c8674 | ice-core and firn CO₂, CH₄, N₂O 0–1996 CE → the pre-instrumental part of panel (b) |
+| (c) | WGI Ch.2 *Data for Figure 2.11* v20220510<br>10.5285/f3515388768344bfb2be0521f82388be | AR6 four-dataset mean 1850–2020 (annual), PAGES 2k, land vs ocean |
+| (d) | WGI Ch.3 *Data for Figure 3.8* v20220613<br>10.5285/bf3d0b8a8c0d4ae19cfd994b6fef4a5c | assessed ranges per driver **and** the lines of evidence behind them (Ribes, Haustein, Gillett, Ch.7; 13 CMIP6 models) |
+| (d), (b) | WGI Ch.7 *Data for Figure 7.6* v20220721<br>10.5285/0dd364e74c254b64bb5fddb5dceed364 | effective radiative forcing 1750–2019 by agent |
+| (d), (b) | WGI Ch.7 *Data for Figure 7.8* v20220721<br>10.5285/5ef11ad195844a59b83393870a5860e1 | forcing → emulator → attributed warming by agent (concentration-based twin of the SPM.2(c) numbers) |
 
 For panel (a) no DDC record exists; the Zenodo workbook (country × sector × gas, GWP100 applied) is itself the processed table.
 Details: [`data/intermediate/README.md`](data/intermediate/README.md).
@@ -394,14 +421,16 @@ plt.tight_layout(); plt.show()
 md(r"""
 ## 4 · Final data — the records you can download today
 
-| Panel | Record | DOI | Host | Licence | In this project |
-|---|---|---|---|---|---|
-| (a) | WGIII *Data for Figure SPM.1* (Lamb et al.) | [10.48490/vfxm-tm28](https://doi.org/10.48490/vfxm-tm28) | IPCC Data Catalogue (MetadataWorks) | per record | rebuilt from the Zenodo source → `data/final/wgiii_spm1/` |
-| (b) | WGI *Data for Figure 2.5* v20221116 (Hall) | [10.5285/c6f19b27f8e74e98968c17c8e1f74c60](https://doi.org/10.5285/c6f19b27f8e74e98968c17c8e1f74c60) | CEDA | CC BY 4.0 | `data/final/wgi_ch2_fig2_5/` + live |
-| (c) | WGI *Data for Figure SPM.1* v20221116 (Gillett, Kaufman, Neukom) | [10.5285/0b2759059ad6474098e40dad73e0a8ec](https://doi.org/10.5285/0b2759059ad6474098e40dad73e0a8ec) | CEDA | CC BY 4.0 | `data/final/wgi_spm1/` + live |
-| (c) | SYR LR *Figure 2.1 (c)* v1.0.0 | [10.7927/nq55-cr83](https://doi.org/10.7927/nq55-cr83) | CIESIN / SEDAC | see record | **to add** (Excel, browser-only; `data/final/syr_fig2_1/README.md`) |
-| (d) | WGI *Data for Figure SPM.2* v20210809 (Gillett, Thorne, Trewin, Szopa …) | [10.5285/c1eb6dad1598427f8f9f3eae346ece2f](https://doi.org/10.5285/c1eb6dad1598427f8f9f3eae346ece2f) | CEDA | CC BY 4.0 | `data/final/wgi_spm2/` + live |
-| (d) | SYR LR *Figure 2.1 (d)* v1.0.0 | [10.7927/b38b-zp83](https://doi.org/10.7927/b38b-zp83) | CIESIN / SEDAC | see record | **to add** |
+Folders in the last column are under `data/final/`; "live" means the notebook reads the file from the CEDA archive when online.
+
+| Panel | Record | DOI | Host · licence | In this project |
+|---|---|---|---|---|
+| (a) | WGIII *Data for Figure SPM.1* (Lamb et al.) | 10.48490/vfxm-tm28 | IPCC Data Catalogue · per record | rebuilt from the Zenodo source → `wgiii_spm1/` |
+| (b) | WGI *Data for Figure 2.5* v20221116 (Hall) | 10.5285/c6f19b27f8e74e98968c17c8e1f74c60 | CEDA · CC BY 4.0 | `wgi_ch2_fig2_5/` + live |
+| (c) | WGI *Data for Figure SPM.1* v20221116 (Gillett, Kaufman, Neukom) | 10.5285/0b2759059ad6474098e40dad73e0a8ec | CEDA · CC BY 4.0 | `wgi_spm1/` + live |
+| (c) | SYR LR *Figure 2.1 (c)* v1.0.0 | 10.7927/nq55-cr83 | CIESIN / SEDAC · see record | **to add** – Excel, browser-only (`syr_fig2_1/`) |
+| (d) | WGI *Data for Figure SPM.2* v20210809 (Gillett, Thorne, Trewin, Szopa …) | 10.5285/c1eb6dad1598427f8f9f3eae346ece2f | CEDA · CC BY 4.0 | `wgi_spm2/` + live |
+| (d) | SYR LR *Figure 2.1 (d)* v1.0.0 | 10.7927/b38b-zp83 | CIESIN / SEDAC · see record | **to add** |
 
 All CEDA records were re-checked against the catalogue on 2026-10-13: publication state *citable* / *published*, every DOI resolves,
 bundled copies byte-identical to the archive. Below, each panel is rebuilt from these files.
@@ -447,11 +476,13 @@ print("2019 shares (%):", share.to_dict())
 md(r"""
 ### 4b · Panel (b) — Atmospheric concentrations of CO₂, CH₄ and N₂O, 1850–2019
 
-Two CEDA records are joined: the **ice-core composites** of WGI Figure 2.4 (Law Dome, WAIS Divide, EDML) carry the record from 1850
-to the start of direct measurements, and the **network means** of WGI Figure 2.5 (NOAA GML shown) carry it to 2019.
+Two CEDA records are joined: the **ice-core and firn records** of WGI Figure 2.4 (the Chapter 2 CO₂ composite to 1946, Law Dome CH₄ and N₂O,
+and the Law Dome DE08 methane record of Rubino et al. 2019 to 1980) carry the series from 1850 towards the instrumental era, and the
+**network means** of WGI Figure 2.5 (NOAA GML, extended backwards with Scripps CO₂ from 1958 and UCI CH₄ from 1978) carry it to 2019.
 As in the SYR figure, **each sub-panel's height is scaled to the gas's assessed warming contribution** (1850–1900 → 2010–2019) from SPM.2(c):
-CO₂ ≈ 0.79 °C, CH₄ ≈ 0.51 °C, N₂O ≈ 0.09 °C. The ice-core composites end in 1946 (CO₂) and 1950 (CH₄); the gaps before the
-Scripps (1958) and UCI (1978) records begin are left open rather than interpolated — the assessed annual series that bridges them is in WGI Annex III.
+CO₂ ≈ 0.79 °C, CH₄ ≈ 0.51 °C, N₂O ≈ 0.09 °C. One real gap remains in the archived records: CO₂ between the end of the
+Chapter 2 ice-core composite (1946) and the first Scripps year (1958). It is drawn as a dotted grey connector, not as data; the assessed annual series that
+bridges it is published in WGI Annex III (Table AIII.1a), which is not part of the CEDA figure-data archive.
 """)
 
 code(r"""
@@ -470,8 +501,15 @@ def annual(df, xcol, ycol):
 modern = {"CO2": annual(conc, "NOAA_CO2_xdate", "NOAA_CO2").combine_first(annual(conc, "SIO_CO2_xdate", "SIO_CO2")),
           "CH4": annual(conc, "NOAA_CH4_xdate", "NOAA_CH4").combine_first(annual(conc, "UCI_CH4_xdate", "UCI_CH4")),
           "N2O": annual(conc, "NOAA_N2O_xdate", "NOAA_N2O")}
-icecore = {"CO2": annual(ice, "CO2 composite age", "CO2 composite"),
-           "CH4": annual(ice, "Law Dome core CH4 age", "Law Dome core CH4"),
+# Law Dome DE08 firn/ice CH4 (Rubino et al. 2019), 1950–1980: block in columns 22–23 of the Figure 2.4b workbook export
+_rows = list(csv.reader(io.StringIO(load_text("data/intermediate/wgi_ch2_fig2_4/fig2_4b_2ka_CH4.csv"))))
+de08 = pd.DataFrame([(float(r[21]), float(r[22])) for r in _rows if len(r) > 22 and r[21].strip().replace(".", "", 1).isdigit()],
+                    columns=["year", "CH4"])
+de08 = de08.groupby(de08["year"].astype(int))["CH4"].mean()
+
+# Chapter 2 CO2 composite (to 1946); CH4: Law Dome record extended by DE08 (to 1980); N2O: Law Dome (to 1996)
+icecore = {"CO2": annual(ice, "CO2 composite age", "CO2 composite"),            # Chapter 2 composite, ends 1946
+           "CH4": annual(ice, "Law Dome core CH4 age", "Law Dome core CH4").combine_first(de08),
            "N2O": annual(ice, "Law Dome core N2O age", "Law Dome core N2O")}
 units = {"CO2": "ppm", "CH4": "ppb", "N2O": "ppb"}
 palette = {"CO2": "#1a237e", "CH4": "#00695c", "N2O": "#6d4c41"}
@@ -480,9 +518,13 @@ fig, axes = plt.subplots(3, 1, figsize=(9, 7.2), sharex=True,
                          gridspec_kw={"height_ratios": [eff["CO2"], eff["CH4"], eff["N2O"]], "hspace": 0.45})
 summary = {}
 for ax, gas in zip(axes, ["CO2", "CH4", "N2O"]):
-    core = icecore[gas].loc[1850:modern[gas].index.min()]
-    ax.plot(core.index, core.values, color=palette[gas], lw=1.6, ls="--", label="ice cores (WGI Fig 2.4)")
+    first_modern = modern[gas].index.min()
+    core = icecore[gas].loc[1850:first_modern]
+    ax.plot(core.index, core.values, color=palette[gas], lw=1.6, ls="--", label="ice cores & firn (WGI Fig 2.4)")
     ax.plot(modern[gas].index, modern[gas].values, color=palette[gas], lw=2.2, label="atmospheric networks (WGI Fig 2.5: NOAA, SIO, UCI)")
+    if core.index.max() < first_modern:                      # real gap in the archived records -> dotted connector, not data
+        ax.plot([core.index.max(), first_modern], [core.iloc[-1], modern[gas].iloc[0]], color="0.6", lw=1, ls=":",
+                label=f"no archived data {core.index.max()}–{first_modern} (connector only)")
     v1850 = icecore[gas].loc[1840:1860].mean(); v2019 = modern[gas].loc[2019]
     summary[gas] = (v1850, v2019)
     ax.annotate(f"{v1850:.0f} {units[gas]}", (1850, v1850), textcoords="offset points", xytext=(6, 6), fontsize=8.5)
@@ -499,7 +541,8 @@ fig.text(0.01, -0.01, "Data: IPCC AR6 WGI Ch.2 Fig 2.4 (CEDA 10.5285/60eeb3cce51
 plt.tight_layout(); plt.show()
 
 for gas, (a, b) in summary.items():
-    print(f"{gas}: 1850 ≈ {a:.1f} {units[gas]} (ice core)  →  2019 = {b:.1f} {units[gas]} (NOAA)   ×{b/a:.2f}")
+    print(f"{gas}: 1850 ≈ {a:.1f} {units[gas]} (ice core)  →  2019 = {b:.1f} {units[gas]} (NOAA)   ×{b/a:.2f}"
+          f"   | last ice/firn year {icecore[gas].index.max()}, first network year {modern[gas].index.min()}")
 """)
 
 md(r"""
@@ -624,9 +667,16 @@ Which copy of each CEDA file was actually used — the live archive or the bundl
 """)
 
 code(r"""
-log = pd.DataFrame({"file": list(SOURCE_LOG), "loaded from": list(SOURCE_LOG.values())})
-log["CEDA path"] = [CEDA.get(f, "—") for f in log["file"]]
-display(log.style.hide(axis="index") if hasattr(log, "style") else log)
+from IPython.display import HTML
+rows_html = []
+for f, src in SOURCE_LOG.items():
+    remote = CEDA.get(f)
+    live = f'<a href="{CEDA_DAP}/{remote}" target="_blank">{remote.rsplit("/", 1)[-1]}</a>' if remote else "—"
+    rows_html.append(f"<tr><td>{os.path.basename(f)}</td><td>{os.path.dirname(f).replace('data/', '')}</td>"
+                     f"<td>{src}</td><td>{live}</td></tr>")
+display(HTML('<table style="font-size:0.85em;text-align:left;word-break:break-word">'
+             '<thead><tr><th>file</th><th>folder (under data/)</th><th>loaded from</th><th>live copy at CEDA</th></tr></thead>'
+             '<tbody>' + "".join(rows_html) + '</tbody></table>'))
 n_live = sum(v.startswith("live") for v in SOURCE_LOG.values())
 print(f"{n_live} of {len(SOURCE_LOG)} CEDA files used by this notebook were loaded live from dap.ceda.ac.uk; the rest from data/")
 """, show_source="Yes", size="Small")
@@ -658,14 +708,14 @@ md(r"""
 
 1. **Start from the caption.** The `{WGI SPM.1 …}` tag names the source figures; every AR6 figure page on ipcc.ch carries one.
 2. **Find the final data record.**
-   * WGI / WGII → CEDA catalogue, search "data for Figure …" (`10.5285/…`), or the index at `IPCC-WG1/CEDA_IPCC_AR6_WGI_Figures_data`.
-   * WGIII → IPCC Data Catalogue (`ipcc-browser.ipcc-data.org`, `10.48490/…`).
+   * WGI / WGII → catalogue.ceda.ac.uk, search "data for Figure …" (`10.5285/…`), or the index at github.com/IPCC-WG1/CEDA_IPCC_AR6_WGI_Figures_data.
+   * WGIII → IPCC Data Catalogue, ipcc-browser.ipcc-data.org (`10.48490/…`).
    * SYR → IPCC Data Catalogue, hosted by CIESIN/SEDAC (`10.7927/…`).
 3. **Read the README and licence shipped with the record** — CEDA files are BADC-CSV with embedded metadata; `read_badc_csv()` above parses them.
-4. **Load live.** `dap.ceda.ac.uk` serves every file with CORS headers, so a browser kernel can read it directly (`load_text()` above).
+4. **Load live.** dap.ceda.ac.uk/badc/ar6_wg1/data serves every file with CORS headers, so a browser kernel can read it directly (`load_text()` above).
 5. **Trace back** when you need more than what is plotted: chapter-level and *Input data for Figure x.y* records at CEDA,
    CMIP6 at DKRZ (`IPCC-AR6_CMIP6`), intermediate products at DKRZ (`IPCC-DDC_AR6_Supplements`), observations at the originating networks.
-6. **Cite twice**: the dataset DOI *and* the report component (e.g. `IPCC, 2021: Summary for Policymakers … doi:10.1017/9781009157896.001`).
+6. **Cite twice**: the dataset DOI *and* the report component (e.g. *IPCC, 2021: Summary for Policymakers …* doi:10.1017/9781009157896.001).
 7. **Respect the licences**: CEDA data are CC BY 4.0; figure *images* fall under the IPCC copyright policy, so redraw from data as done here.
 
 ### Open items

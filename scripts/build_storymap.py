@@ -22,6 +22,7 @@ Coordinates are stored in EPSG:3857 (Web Mercator metres).
 import json
 import math
 import pathlib
+import re
 import uuid
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -54,6 +55,33 @@ def extent(lon, lat, zoom, w_px=1200, h_px=800):
 
 def uid():
     return str(uuid.uuid4())
+
+
+# ------------------------------------------------------------- link helpers --
+DOI_RE = re.compile(r"(?<![\w/\[(])(10\.\d{4,9}/[A-Za-z0-9._\-/]*[A-Za-z0-9])")
+LINKED_DOI_RE = re.compile(r"\[(10\.\d{4,9}/[^\]]+)\]\((https?://doi\.org/[^)]+)\)")
+URL_RE = re.compile(
+    r"(?<![\w/\[(@])((?:www\.)?(?:github\.com|wdc-climate\.de|interactive-atlas\.ipcc\.ch|sedac\.ciesin\.columbia\.edu|"
+    r"ipcc-browser\.ipcc-data\.org|ipcc-data\.org|catalogue\.ceda\.ac\.uk|dap\.ceda\.ac\.uk|gml\.noaa\.gov|scrippsco2\.ucsd\.edu|"
+    r"agage\.mit\.edu|edgar\.jrc\.ec\.europa\.eu|redmine\.dkrz\.de|zenodo\.org|ipcc\.ch)(?:/[^\s)\]|`*,;]*[^\s)\]|`*,;.])?)")
+
+
+def short_doi(d):
+    """Shorten CEDA-style DOIs (32-hex uuid) for display: 10.5285/0b275905…"""
+    m = re.fullmatch(r"(10\.5285/[0-9a-f]{8})[0-9a-f]{24}", d)
+    return m.group(1) + "…" if m else d
+
+
+def linkify(text):
+    """Turn bare DOIs and known data-portal URLs into markdown links (outside code spans),
+    and shorten the display text of existing long DOI links."""
+    parts = text.split("`")
+    for i in range(0, len(parts), 2):                      # even parts are outside code spans
+        t = LINKED_DOI_RE.sub(lambda m: f"[{short_doi(m.group(1))}]({m.group(2)})", parts[i])
+        t = DOI_RE.sub(lambda m: f"[{short_doi(m.group(1))}](https://doi.org/{m.group(1)})", t)
+        t = URL_RE.sub(lambda m: f"[{m.group(1)}](https://{m.group(1)})", t)
+        parts[i] = t
+    return "`".join(parts)
 
 
 # ------------------------------------------------------------------ places --
@@ -331,9 +359,9 @@ No record is labelled "intermediate data for SYR Figure 2.1". The processing cha
 | Panel | Chapter-level record (CEDA, CC BY 4.0) |
 |---|---|
 | **(a)** | 🟡 none in the DDC – the Zenodo workbook is the processed table |
-| **(b)** | 🟢 WGI Fig 2.4 – ice-core CO₂ / CH₄ / N₂O 0–2000 CE (`10.5285/60eeb3cc…`) · per-network means inside the Fig 2.5 file |
-| **(c)** | 🟢 WGI Fig 2.11 – AR6 four-dataset mean 1850–2020, PAGES 2k, land/ocean (`10.5285/f3515388…`) |
-| **(d)** | 🟢 WGI Fig 3.8 – lines of evidence per driver (`10.5285/bf3d0b8a…`) · Fig 7.6 ERF 1750–2019 (`10.5285/0dd364e7…`) · Fig 7.8 attributed warming by agent (`10.5285/5ef11ad1…`) |
+| **(b)** | 🟢 WGI Fig 2.4 – ice-core CO₂ / CH₄ / N₂O 0–2000 CE, 10.5285/60eeb3cce51a457cb5ee1c577a0c8674 · per-network means inside the Fig 2.5 file |
+| **(c)** | 🟢 WGI Fig 2.11 – AR6 four-dataset mean 1850–2020, PAGES 2k, land/ocean, 10.5285/f3515388768344bfb2be0521f82388be |
+| **(d)** | 🟢 WGI Fig 3.8 – lines of evidence per driver, 10.5285/bf3d0b8a8c0d4ae19cfd994b6fef4a5c · Fig 7.6 ERF 1750–2019, 10.5285/0dd364e74c254b64bb5fddb5dceed364 · Fig 7.8 attributed warming by agent, 10.5285/5ef11ad195844a59b83393870a5860e1 |
 
 Other intermediate archives: DKRZ `IPCC-DDC_AR6_Supplements`, CSIC Atlas, figure code on github.com/IPCC-WG1.
 
@@ -373,7 +401,7 @@ Four CEDA records show how inputs became the SPM numbers:
 ])}
 
 Catalogue state (checked {CHECKED}): all four **citable**, DOIs resolve, CC BY 4.0.
-Archive path: `{CEDA_DAP}/ch_0x/…` – CORS enabled, so the notebook reads them directly in the browser.
+Archive: [dap.ceda.ac.uk/badc/ar6_wg1/data]({CEDA_DAP}/) – CORS enabled, so the notebook reads the files directly in the browser.
 
 ➡ **Next** – Step 4: the final data.
 """,
@@ -388,9 +416,9 @@ Archive path: `{CEDA_DAP}/ch_0x/…` – CORS enabled, so the notebook reads the
 | Panel | Working-Group record (final data) |
 |---|---|
 | **(a)** | 🟢 WGIII *Data for Figure SPM.1* · 10.48490/vfxm-tm28 · IPCC Data Catalogue · rebuilt here from the Zenodo source |
-| **(b)** | 🟢 WGI Ch.2 *Data for Figure 2.5* v20221116 · 10.5285/c6f19b27… · CEDA |
-| **(c)** | 🟢 WGI *Data for Figure SPM.1* v20221116 · 10.5285/0b275905… · CEDA |
-| **(d)** | 🟢 WGI *Data for Figure SPM.2* v20210809 · 10.5285/c1eb6dad… · CEDA |
+| **(b)** | 🟢 WGI Ch.2 *Data for Figure 2.5* v20221116 · 10.5285/c6f19b27f8e74e98968c17c8e1f74c60 · CEDA |
+| **(c)** | 🟢 WGI *Data for Figure SPM.1* v20221116 · 10.5285/0b2759059ad6474098e40dad73e0a8ec · CEDA |
+| **(d)** | 🟢 WGI *Data for Figure SPM.2* v20210809 · 10.5285/c1eb6dad1598427f8f9f3eae346ece2f · CEDA |
 
 | Panel | SYR-level record (CIESIN / SEDAC) |
 |---|---|
@@ -431,7 +459,7 @@ CEDA's *IPCC AR6 Synthesis Report (SYR)* collection record exists but is still *
 
 {record([
     ("Record", "*Data for Figure SPM.1*, version 0.0.1, 4 April 2022, Lamb et al."),
-    ("DOI", "**10.48490/vfxm-tm28** → ipcc-browser.ipcc-data.org, dataset 437"),
+    ("DOI", "10.48490/vfxm-tm28 → ipcc-browser.ipcc-data.org/browser/dataset?id=437"),
     ("Content", "global net anthropogenic GHG emissions 1990–2019, Gt CO₂-eq (GWP100), by gas"),
     ("Access", "CSV in the *Data Downloads* section – JavaScript application, browser only"),
     ("Source", "Minx et al. (2021) ESSD · Zenodo 10.5281/zenodo.6483002"),
@@ -455,7 +483,7 @@ SYR figure data are catalogued in the IPCC Data Catalogue and hosted by CIESIN /
     ("Panel (c)", "*SYR LR Figure 2.1 (c): Changes in global surface temperature* · id 8498 · v1.0.0 (2025-04-10) · doi 10.7927/nq55-cr83 · Excel ~15 KB"),
     ("Panel (d)", "*SYR LR Figure 2.1 (d): Humans are responsible* · id 8493 · v1.0.0 (2025-04-09) · doi 10.7927/b38b-zp83 – verify on landing page"),
     ("Panels (a), (b)", "🔴 no SYR-level record – use WGIII SPM.1 / WGI Fig 2.5"),
-    ("Access", "sedac.ciesin.columbia.edu/ddc/ar6-syr-lr-fig2-1c/ and …-1d/ – browser only"),
+    ("Access", "sedac.ciesin.columbia.edu/ddc/ar6-syr-lr-fig2-1c/ · sedac.ciesin.columbia.edu/ddc/ar6-syr-lr-fig2-1d/ – browser only"),
     ("Open item", "download both workbooks, confirm DOI and licence, save as CSV in `data/final/syr_fig2_1/`"),
 ])}
 
@@ -564,7 +592,7 @@ def main() -> None:
                 "content": {
                     "contentMode": mode,
                     "title": title,
-                    "markdown": md.strip("\n"),
+                    "markdown": linkify(md.strip("\n")),
                     "image": "",
                 },
                 "layerOverride": [],

@@ -6,7 +6,8 @@
     "numpy",
     "pandas",
     "matplotlib",
-    "jupytergis-lite"
+    "jupytergis-lite",
+    "specta"
   ],
   "channels": [
     "emscripten-forge-4x",
@@ -178,6 +179,18 @@
         "sha256": "587a0e2606026716760af58e5d7c15ea02a848bd076a324946798be29d0229db"
       },
       "size": 27047
+    },
+    "specta-0.5.3-pyh0398c0e_0.conda": {
+      "name": "specta",
+      "build": "pyh0398c0e_0",
+      "version": "0.5.3",
+      "subdir": "noarch",
+      "channel": "conda-forge",
+      "hash": {
+        "md5": "4db73e72d72e4779d210f370501ad115",
+        "sha256": "fe345f9d8cbbe38cb4ed6361214bbcb788b2f62c13e5374a18084199e050ee38"
+      },
+      "size": 5605233
     },
     "python-3.13.1-h_2efca29_11_cp313.tar.bz2": {
       "name": "python",
@@ -358,6 +371,18 @@
         "sha256": "4215f1ef19bcfdad5b0bd2fe00fca19ff93ed09a00e8f51bc2cbf4964ae70db0"
       },
       "size": 95320
+    },
+    "jupyterlite-core-0.8.6-pyh5ded981_0.conda": {
+      "name": "jupyterlite-core",
+      "build": "pyh5ded981_0",
+      "version": "0.8.6",
+      "subdir": "noarch",
+      "channel": "conda-forge",
+      "hash": {
+        "md5": "7a2cf0c379d09dbb05154e6b58917a83",
+        "sha256": "963117f541df79ed550bd5bd6838fafd0edf9d3b5228e86b841bacf9403d1ddf"
+      },
+      "size": 15836614
     },
     "packaging-26.3-pyhc364b38_0.conda": {
       "name": "packaging",
@@ -718,6 +743,30 @@
       },
       "size": 21070
     },
+    "doit-0.37.0-pyhcf101f3_0.conda": {
+      "name": "doit",
+      "build": "pyhcf101f3_0",
+      "version": "0.37.0",
+      "subdir": "noarch",
+      "channel": "conda-forge",
+      "hash": {
+        "md5": "37b3d4c558f2bb2b5378c43f4d6f1fb5",
+        "sha256": "ed23dc270abd9c51b83af377d3dc09e4a82fc85bb118b6fdaa88b5bc350854a9"
+      },
+      "size": 78854
+    },
+    "jupyter_core-5.9.1-pyhc90fa1f_0.conda": {
+      "name": "jupyter_core",
+      "build": "pyhc90fa1f_0",
+      "version": "5.9.1",
+      "subdir": "noarch",
+      "channel": "conda-forge",
+      "hash": {
+        "md5": "b38fe4e78ee75def7e599843ef4c1ab0",
+        "sha256": "1d34b80e5bfcd5323f104dbf99a2aafc0e5d823019d626d0dce5d3d356a2a52a"
+      },
+      "size": 65503
+    },
     "wcwidth-0.8.5-pyh5ded981_0.conda": {
       "name": "wcwidth",
       "build": "pyh5ded981_0",
@@ -946,6 +995,18 @@
       },
       "size": 219589
     },
+    "platformdirs-4.13.0-pyh5ded981_0.conda": {
+      "name": "platformdirs",
+      "build": "pyh5ded981_0",
+      "version": "4.13.0",
+      "subdir": "noarch",
+      "channel": "conda-forge",
+      "hash": {
+        "md5": "35cc2a176fc6f886d6efa41ecb5f1de0",
+        "sha256": "e75e5e85e0039c77f8b707baa862f029f25a582ff158bcae36cf361a409eaf59"
+      },
+      "size": 34027
+    },
     "cffi-2.1.1-py313h3f75574_0.tar.bz2": {
       "name": "cffi",
       "build": "py313h3f75574_0",
@@ -1008,5 +1069,5 @@
     }
   },
   "pipPackages": {},
-  "id": "3829079475836691"
+  "id": "6336509407932411"
 }

@@ -1,6 +1,10 @@
 # IPCC AR6 SYR Figure 2.1 — a data story for notebook.link
 
-[![Launch on Notebook.link](https://img.shields.io/badge/notebook.link-launch-2b6cb0)](https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/)
+[![Launch on Notebook.link](https://img.shields.io/badge/notebook.link-JupyterLab-2b6cb0?logo=jupyter&logoColor=white)](https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/lab/)
+[![Story Map](https://img.shields.io/badge/Story%20Map-open%20in%20Specta-0b7a3b?logo=openstreetmap&logoColor=white)](https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/specta/?path=storymap/ipcc_ar6_data_journey.jGIS)
+[![Story Map editor](https://img.shields.io/badge/Story%20Map-JupyterGIS%20editor-0b7a3b?logo=openstreetmap&logoColor=white)](https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/lab/?path=storymap/ipcc_ar6_data_journey.jGIS)
+[![Data story notebook](https://img.shields.io/badge/Data%20story-read%20in%20Specta-c2410c?logo=jupyter&logoColor=white)](https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/specta/?path=ar6_syr_fig2_1_data_story.ipynb)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Story%20Map%20(Specta)-444?logo=github)](https://ipcc-expert-activity-7th-ar.github.io/ar6-syr-fig2-1-data-story/specta/?path=storymap/ipcc_ar6_data_journey.jGIS)
 
 An interactive, browser-only (JupyterLite / WebAssembly) story that starts from
 **IPCC AR6 Synthesis Report, Longer Report Figure 2.1** — *the causal chain from
@@ -24,43 +28,41 @@ Audience: policy analysts and data practitioners. Language: English.
 
 ## Run it on notebook.link
 
-### A. Zero-setup link (public repository)
+### A. Direct links (no account needed)
 
-Prefix the repository URL with `notebook.link/`:
+notebook.link resolves `https://notebook.link/github/{owner}/{repo}/[tree/{branch}/|commit/{sha}/]{app}/?path={file}`
+where `{app}` is `lab` (JupyterLab), `notebooks`, `edit`, `tree`, `voici` or `specta` (presentation). The badges above use:
 
-```
-https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/
-```
+| What you want | Link |
+|---|---|
+| Story Map, full-screen guided presentation | `https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/specta/?path=storymap/ipcc_ar6_data_journey.jGIS` |
+| Story Map in the JupyterGIS editor (layers, segments, Preview Mode) | `https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/lab/?path=storymap/ipcc_ar6_data_journey.jGIS` |
+| Data-story notebook as an article (code hidden, charts computed live) | `https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/specta/?path=ar6_syr_fig2_1_data_story.ipynb` |
+| Data-story notebook in JupyterLab | `https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/lab/?path=ar6_syr_fig2_1_data_story.ipynb` |
+| Plain JupyterLab with the file browser | `https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/lab/` |
 
-notebook.link reads `environment.yml` + `nblink-lock.json` from the repository
-root, solves the WebAssembly environment in the browser and opens JupyterLab.
-Then:
+On first start notebook.link reads `environment.yml` + `nblink-lock.json` from the repository root and installs the WebAssembly
+environment (xeus-python, pandas, matplotlib, **jupytergis-lite**, **specta**) — wait for the boot screen to finish; do not press
+*Continue*, which would skip to a bare default environment without JupyterGIS and Specta. Later visits are cached.
 
-1. In the file browser double-click `ar6_syr_fig2_1_data_story.ipynb` and run all cells
-   (`Run ▸ Run All Cells`). First start downloads ~50 MB of WebAssembly packages; later visits are cached.
-2. For the reading view: right-click the notebook → **Open With ▸ Specta**
-   (layout *article*, code hidden; the notebook metadata already sets this).
-3. For the Story Map: double-click `storymap/ipcc_ar6_data_journey.jGIS`, then switch on
-   **Preview Mode** in the Story panel, or right-click → **Open With ▸ Specta** for the full-screen guided story.
+Inside JupyterLab: the `.jGIS` file opens in the JupyterGIS map editor (left panel *Layers* / *Segments*, right panel *Story*
+with the **Preview Mode** switch); right-click any file → **Open With ▸ Specta** gives the presentation view.
+A link without a git reference follows the latest commit of `main`; pin a tag or commit for a permanent snapshot, e.g.
+`…/ar6-syr-fig2-1-data-story/commit/<sha>/specta/?path=storymap/ipcc_ar6_data_journey.jGIS`.
 
-To open a file directly, append its path:
-`https://notebook.link/github/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/lab/tree/ar6_syr_fig2_1_data_story.ipynb`
+### B. Short aliased link from the notebook.link dashboard (optional)
 
-A link without a git reference always follows the latest commit of the default branch.
-Pin a tag or commit for a permanent snapshot, e.g.
-`https://notebook.link/github.com/IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story/commit/<sha>/`.
+Sign in at https://notebook.link → **Links → New Link → Repository**: GitHub, repository
+`IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story`, reference `main` or a tag, *Document path*
+`storymap/ipcc_ar6_data_journey.jGIS`, interface style *Presentation* (Specta), alias e.g. `ipcc-ar6-fig2-1`.
+The result is `https://notebook.link/@<user>/ipcc-ar6-fig2-1`, the same form as `@arjxn-py/nepal-flash-flood`.
 
-### B. Publish a permanent, aliased link from the notebook.link dashboard
+### GitHub Pages mirror (self-hosted JupyterLite)
 
-1. Sign in at https://notebook.link (free individual plan; GitHub sign-in works).
-2. **Links → New Link → Repository**: provider *GitHub*, repository
-   `IPCC-Expert-Activity-7th-AR/ar6-syr-fig2-1-data-story`, git reference (`main` or a tag),
-   *Document path* `ar6_syr_fig2_1_data_story.ipynb`, interface style *Specta* (or *Lab*),
-   alias e.g. `ipcc-ar6-fig2-1`, visibility *public* or *unlisted*.
-3. The link becomes `https://notebook.link/@<your-user>/ipcc-ar6-fig2-1` — this is the equivalent of
-   `https://notebook.link/@arjxn-py/nepal-flash-flood`.
-4. Create a second link with *Document path* `storymap/ipcc_ar6_data_journey.jGIS` and interface
-   style *Specta* for the story-map presentation.
+`.github/workflows/deploy.yml` builds the same content as a static JupyterLite site with the Specta app and publishes it to
+GitHub Pages (Settings → Pages → Source: *GitHub Actions*; the workflow enables it on first run when allowed).
+URLs: `https://ipcc-expert-activity-7th-ar.github.io/ar6-syr-fig2-1-data-story/specta/?path=storymap/ipcc_ar6_data_journey.jGIS`
+and `…/lab/?path=ar6_syr_fig2_1_data_story.ipynb`.
 
 ### C. Edit collaboratively inside notebook.link (optional)
 

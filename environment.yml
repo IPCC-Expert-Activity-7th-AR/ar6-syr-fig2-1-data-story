@@ -7,4 +7,5 @@ dependencies:
   - numpy
   - pandas
   - matplotlib
-  - jupytergis-lite  # opens the .jGIS story map in JupyterLite
+  - jupytergis-lite  # JupyterGIS editor + Story Map viewer for the .jGIS file
+  - specta           # "Open With -> Specta" presentation mode (article / slides / story map)

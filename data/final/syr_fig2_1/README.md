@@ -17,7 +17,7 @@ hosted by CIESIN / NASA SEDAC at Columbia University (DOI prefix 10.7927).
       (search engines showed inconsistent DOIs), note the licence statement.
 - [ ] Download the two Excel workbooks and save them here as
       `syr_lr_fig2_1c.xlsx` and `syr_lr_fig2_1d.xlsx`
-      (the SEDAC servers refused non-browser connections on 2026-10-13).
+      (the SEDAC servers refused non-browser connections on 2026-10-13, re-checked the same day).
 - [ ] Export each workbook to CSV (`syr_lr_fig2_1c.csv`, `syr_lr_fig2_1d.csv`)
       so the WebAssembly kernel can read it without `openpyxl`.
 - [ ] Un-comment the "SYR final data" cell in the notebook to compare the SYR
@@ -28,4 +28,4 @@ SPM.2 final data archived at CEDA, which are the sources cited in the SYR captio
 
 Note: the CEDA catalogue also has a record for an "IPCC AR6 Synthesis Report
 (SYR)" dataset collection (uuid 9177e927f0664da9bf1e25f57561d0d8) but it was
-marked "not yet published" when checked.
+marked "not yet published" when checked (re-checked 2026-10-13: still unpublished; the CEDA catalogue itself is reachable again).

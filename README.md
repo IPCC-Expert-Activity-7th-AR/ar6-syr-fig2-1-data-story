@@ -18,13 +18,23 @@ Audience: policy analysts and data practitioners. Language: English.
 
 | Path | What it is | How to open on notebook.link |
 |---|---|---|
-| `ar6_syr_fig2_1_data_story.ipynb` | The data story: narrative + live reproduction of the four panels from archived final data (pandas + matplotlib, runs in the browser) | double-click in the file browser, or right-click → **Open With → Specta** for the article view |
-| `storymap/ipcc_ar6_data_journey.jGIS` | JupyterGIS **Story Map**: 20 guided stops organised as **Step 1 report → Step 2 input → Step 3 intermediate → Step 4 final data**, each with catalogue record, DOI, version, files, licence and an availability flag (`AVAILABLE` / `ONLINE` / `PARTIAL` / `MISSING`), ending with a status dashboard | double-click (JupyterGIS editor) → **Preview Mode**, or right-click → **Open With → Specta** for full-screen presentation |
-| `data/final/…` | Unmodified copies of the CEDA records for WGI Fig SPM.1, SPM.2, Fig 2.5 (+ README/licence), and a CSV rebuilt from the Zenodo source of WGIII Fig SPM.1 | read by the notebook |
-| `data/input/README.md`, `data/intermediate/README.md` | Detailed provenance of the input tier (EDGAR, bookkeeping models, NOAA/SIO/CSIRO/AGAGE/UCI, HadCRUT5 …, CMIP6 at DKRZ) and the intermediate tier (DKRZ `IPCC-DDC_AR6_Supplements`, CEDA, code on GitHub/Zenodo) | documentation |
-| `data/PROVENANCE.md` | One table of every record, version, DOI, host, licence, plus citation templates | documentation |
+| `ar6_syr_fig2_1_data_story.ipynb` | The data story: narrative + live reproduction of the four panels, plus the input tier (four temperature datasets) and the intermediate tier (ice cores, forcing → warming by agent, lines of evidence). CEDA files are **fetched live from `dap.ceda.ac.uk`** with a bundled fallback; a provenance log shows which copy was used | double-click in the file browser, or right-click → **Open With → Specta** for the article view |
+| `storymap/ipcc_ar6_data_journey.jGIS` | JupyterGIS **Story Map**: 20 guided stops organised as **Step 1 report → Step 2 input → Step 3 intermediate → Step 4 final data**. Every stop opens with one status badge (🟢 available · 🔵 online · 🟡 partial · 🔴 missing), uses two-column fact tables and ends with a pointer to the next stop; the dashboard is an emoji matrix | double-click (JupyterGIS editor) → **Preview Mode**, or right-click → **Open With → Specta** for full-screen presentation |
+| `data/final/…` | Unmodified copies of the CEDA records for WGI Fig SPM.1, SPM.2, Fig 2.5 (+ README/licence), and a CSV rebuilt from the Zenodo source of WGIII Fig SPM.1 | read by the notebook (tier 4) |
+| `data/intermediate/…` | CEDA chapter-level records that form the chain to Figure 2.1: WGI Fig 2.4 (ice cores), Fig 2.11 (four-dataset mean), Fig 3.8 (lines of evidence), Fig 7.6 / 7.8 (ERF → attributed warming) | read by the notebook (tier 3) |
+| `data/input/wgi_ch2_fig2_11_input/` | CEDA *Input data for Figure 2.11*: HadCRUT5, NOAAGlobalTemp, Berkeley Earth, Kadow 1850–2020 | read by the notebook (tier 2) |
+| `data/input/README.md`, `data/intermediate/README.md` | Detailed provenance of the input tier (EDGAR, bookkeeping models, NOAA/SIO/CSIRO/AGAGE/UCI, ice cores, HadCRUT5 …, CMIP6 at DKRZ) and the intermediate tier | documentation |
+| `data/PROVENANCE.md` | One table of every record, version, DOI, catalogue state (verified 2026-10-13), host, licence, live path, plus citation templates | documentation |
 | `scripts/` | Reproducible builders: `build_wgiii_spm1_from_essd.py` (Zenodo → CSV), `build_notebook.py` (nbformat → ipynb), `build_storymap.py` (→ .jGIS) | run locally |
-| `environment.yml`, `nblink-lock.json`, `jupyter-lite.json` | notebook.link environment (xeus-python, numpy, pandas, matplotlib, jupytergis-lite), pinned lock file, Specta defaults | read by notebook.link |
+| `environment.yml`, `nblink-lock.json`, `jupyter-lite.json` | notebook.link environment (xeus-python, numpy, pandas, matplotlib, jupytergis-lite, specta), pinned lock file, Specta defaults | read by notebook.link |
+
+## Live data from CEDA
+
+`https://dap.ceda.ac.uk/badc/ar6_wg1/data/` serves every WGI record with `Access-Control-Allow-Origin: *`, so the WebAssembly kernel
+reads the archive directly (synchronous `XMLHttpRequest` through `pyjs`; `urllib` on a local CPython). `load_text()` in the notebook
+tries the live URL first and falls back to the copy under `data/`; section 4f prints which copy each file came from. Set
+`PREFER_LIVE = False` in the first code cell to work fully offline. The CEDA catalogue (`catalogue.ceda.ac.uk`) was reachable on
+2026-10-13 and every DOI cited here was verified against it; the SYR collection record there is still unpublished.
 
 ## Run it on notebook.link
 
@@ -87,6 +97,8 @@ mambajs create-lock environment.yml nblink-lock.json   # refresh the lock after 
       (doi:10.7927/nq55-cr83, doi:10.7927/b38b-zp83), confirm the DOI shown for (d), convert to CSV,
       place in `data/final/syr_fig2_1/` (instructions in that folder's README). The notebook's
       final comparison cell activates automatically.
+- [ ] Download the official WGIII SPM.1 CSV from the IPCC Data Catalogue (browser only) and store it next to
+      the rebuilt file for a one-to-one check.
 - [ ] Browse the DKRZ *Find data* list for `IPCC-DDC_AR6_Supplements` and note any GMST/attribution entries.
 - [ ] Optional: replace the OpenStreetMap basemap in the story map with a muted style, and add
       per-stop images (the `image` field of each segment is empty by design — IPCC figure images are

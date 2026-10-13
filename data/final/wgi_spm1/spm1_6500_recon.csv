@@ -1,0 +1,22 @@
+Conventions,G,BADC-CSV,1,
+title,G,Summary for Policymakers of the Working Group I Contribution to the IPCC Sixth Assessment Report - data for Figure SPM.1 (v….),,
+creator,G,Nathan Gillett,Darrell Kaufman,Raphael Neukom
+long_name,1,Age (years before 2000),YYYY,
+type,1,int,,
+long_name,2,5th percentile,Degrees C,
+standard_name,2,surface_temperature_anomaly,,
+type,2,float,,
+long_name,3,95th percentile,Degrees C,
+type,3,float,,
+comments,G,"around 6500 years ago (4500 BCE). bar for the warmest multi-century period in more than 100,000 years (around 6500 years ago: 4500 BCE) [grey bar]
+
+",,
+start_time,G,01/01/0001,,
+end_time,G,31/12/2019,,
+geographical_extent,G,Global,,
+rights,G,Use of these data is covered by the following licence: http://creativecommons.org/licenses/by/4.0/. When using these data you must cite them correctly using the citation given on the CEDA Data Catalogue record.,,
+reference,G,"When citing this dataset, please include both the data citation below (under 'Citable as') and the following citation for the report component from which the figure originates:
+IPCC, 2021: Summary for Policymakers. In: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change [Masson-Delmotte, V., P. Zhai, A. Pirani, S. L. Connors, C. Péan, S. Berger, N. Caud, Y. Chen, L. Goldfarb, M. I. Gomis, M. Huang, K. Leitzell, E. Lonnoy, J.B.R. Matthews, T. K. Maycock, T. Waterfield, O. Yelekçi, R. Yu and B. Zhou (eds.)]. Cambridge University Press. In Press.",,
+data,,,,
+1,2,3,,
+6500,0.2,1,,

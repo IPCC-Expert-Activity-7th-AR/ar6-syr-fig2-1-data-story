@@ -1,0 +1,13 @@
+{
+  "jupyter-lite-schema-version": 0,
+  "jupyter-config-data": {
+    "appName": "IPCC AR6 SYR Figure 2.1 – data story",
+    "spectaConfig": {
+      "defaultLayout": "article",
+      "topBar": {
+        "title": "IPCC AR6 SYR Figure 2.1 – from emissions to warming, and the data behind it",
+        "themeToggle": true
+      }
+    }
+  }
+}

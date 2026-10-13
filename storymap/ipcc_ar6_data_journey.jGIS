@@ -1,0 +1,575 @@
+{
+ "schemaVersion": "0.6.0",
+ "layerTree": [
+  "4a924dd4-3c92-4d50-870c-fd45e7f5c144",
+  "a3a24e97-8a24-4ba5-b461-c8578216c2fd",
+  "8c776551-05c8-4588-b56e-b91fcb7a3d20",
+  "1a63d45d-88f6-495d-9a70-abfc6577ef02",
+  "a077deff-3031-4a88-9f3b-97dc3aadeea7",
+  "640cd9c4-5407-44ae-9032-f4894ecbba5a",
+  "d999552c-4479-42f2-96ab-3ddf6c04e913",
+  "6d7d19ac-27e4-4d91-b519-98ad0c18ea14",
+  "7aacae3a-3fcf-4f55-8d5d-4f61be1818c7",
+  "ef044f02-a453-4133-a453-14dea871faf7",
+  "eedc32ac-6ba2-46b5-b7ea-6999e0b15673",
+  "e08f796b-bacd-4103-a242-bbf2828a054c",
+  "4e0c6178-e2d7-4910-8c11-d9742a0cdb62",
+  "6c20cb6f-17f6-4fe6-b4e2-e1b8943a3452",
+  "5b8de931-cdcc-4f6a-87df-359072e48c14",
+  "502ebb5d-9d9c-4c61-ada5-2be0f1f9d792",
+  "06eed28c-f57d-4e8d-8986-53ba419b0a31",
+  "f1cc90f6-4409-4f07-90b7-16d07183fec3",
+  "610dacfb-71f1-44e5-bc44-1b03cdc99c0c",
+  "0003ee7d-5e56-44da-9a56-f111560ea18b",
+  "7382df01-93cb-4051-9f2d-ce1a1fec97a5"
+ ],
+ "layers": {
+  "4a924dd4-3c92-4d50-870c-fd45e7f5c144": {
+   "name": "OpenStreetMap.Mapnik Layer",
+   "type": "RasterLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "66842702-bae8-4ed1-b575-785f6b3e5f23"
+   }
+  },
+  "a3a24e97-8a24-4ba5-b461-c8578216c2fd": {
+   "name": "IPCC Secretariat, Geneva",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "01771f15-3b8a-43df-9cbb-3e02689f9459",
+    "symbologyState": {}
+   }
+  },
+  "8c776551-05c8-4588-b56e-b91fcb7a3d20": {
+   "name": "Mauna Loa Observatory (NOAA GML)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "cbb0f61a-0c33-4ccb-8647-50fca164226f",
+    "symbologyState": {}
+   }
+  },
+  "1a63d45d-88f6-495d-9a70-abfc6577ef02": {
+   "name": "Cape Grim Baseline Station (CSIRO / AGAGE)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "6db9e8e1-08ce-4a5b-a51c-3ac2ecb48809",
+    "symbologyState": {}
+   }
+  },
+  "a077deff-3031-4a88-9f3b-97dc3aadeea7": {
+   "name": "Met Office Hadley Centre, Exeter (HadCRUT)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "7d1928cf-6136-4e24-b0a8-2f6be532dd6c",
+    "symbologyState": {}
+   }
+  },
+  "640cd9c4-5407-44ae-9032-f4894ecbba5a": {
+   "name": "JRC Ispra (EDGAR emissions database)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "d6a19ab6-7e89-479c-b131-619733ded8fd",
+    "symbologyState": {}
+   }
+  },
+  "d999552c-4479-42f2-96ab-3ddf6c04e913": {
+   "name": "DKRZ, Hamburg (IPCC DDC: CMIP6 input + intermediate data)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "7dac3e37-b472-45dd-b4db-39abd048a8d0",
+    "symbologyState": {}
+   }
+  },
+  "6d7d19ac-27e4-4d91-b519-98ad0c18ea14": {
+   "name": "CSIC-IFCA, Santander (IPCC DDC: Interactive Atlas)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "c315553d-0338-490f-ba6a-7d859ed44f59",
+    "symbologyState": {}
+   }
+  },
+  "7aacae3a-3fcf-4f55-8d5d-4f61be1818c7": {
+   "name": "CEDA, Harwell (IPCC DDC: WGI final figure data)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "13ccb69e-af5f-4b1f-bfb9-0e9aeb5de3f0",
+    "symbologyState": {}
+   }
+  },
+  "ef044f02-a453-4133-a453-14dea871faf7": {
+   "name": "CIESIN / SEDAC, Palisades NY (IPCC DDC: SYR final figure data)",
+   "type": "VectorLayer",
+   "visible": true,
+   "parameters": {
+    "opacity": 1.0,
+    "source": "cae16825-63cb-4fca-8f36-3967f7e93541",
+    "symbologyState": {}
+   }
+  },
+  "eedc32ac-6ba2-46b5-b7ea-6999e0b15673": {
+   "name": "The data journey behind one IPCC figure",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 1.4,
+    "extent": [
+     -34478035.576546915,
+     -20223937.14614873,
+     36704425.39241239,
+     27231036.833157476
+    ],
+    "content": {
+     "contentMode": "markdown",
+     "title": "The data journey behind one IPCC figure",
+     "markdown": "## From emissions to warming: where does Figure 2.1 come from?\n\nIPCC AR6 Synthesis Report, Longer Report **Figure 2.1** shows the causal chain from greenhouse-gas emissions (a), to atmospheric concentrations (b), to observed warming (c), to the human contribution to that warming (d).\n\nThe IPCC manages the data behind every figure in three tiers:\n\n* **Input data** – observations and model output used by authors\n* **Intermediate data** – processed products created during the assessment\n* **Final data** – the numbers plotted in the published figure\n\nThis story visits the places where each tier is produced and archived. Use the arrows to move between stops. The companion notebook reproduces all four panels from the archived final data.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "e08f796b-bacd-4103-a242-bbf2828a054c": {
+   "name": "Stop 1 · IPCC Secretariat, Geneva — the published figure",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     660570.5649851469,
+     5800709.121219756,
+     706432.7819562525,
+     5831283.932533827
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 1 · IPCC Secretariat, Geneva — the published figure",
+     "markdown": "**Final figure.** Figure 2.1 was approved with the Synthesis Report in March 2023 and is published at [ipcc.ch](https://www.ipcc.ch/report/ar6/syr/figures/figure-2-1).\n\nIts caption traces each panel back to the Working Group reports: **WGIII Figure SPM.1** (panel a), **WGI Section 2.1 / Figure 2.5** (panel b), **WGI Figure SPM.1** (panel c) and **WGI Figure SPM.2** (panel d).\n\nFollowing those references is the key to finding the data.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "4e0c6178-e2d7-4910-8c11-d9742a0cdb62": {
+   "name": "Stop 2 · Mauna Loa — measuring CO₂ (input data, panel b)",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 11,
+    "extent": [
+     -17364536.712472677,
+     2187592.821693744,
+     -17272812.278530464,
+     2248742.4443218852
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 2 · Mauna Loa — measuring CO₂ (input data, panel b)",
+     "markdown": "**Input data.** The CO₂ curve in panel (b) starts in 1958 with the continuous record from Mauna Loa, Hawaii, run by NOAA's Global Monitoring Laboratory and the Scripps Institution of Oceanography.\n\nWGI Chapter 2 combined global means from **NOAA GML, SIO, CSIRO, AGAGE and UCI** networks. These observational inputs are not held by the IPCC DDC; they are cited to the originating networks and listed in the WGI Annex III and the FAIR data table for Figure 2.5.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "6c20cb6f-17f6-4fe6-b4e2-e1b8943a3452": {
+   "name": "Stop 3 · Cape Grim — CH₄ and N₂O (input data, panel b)",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 11,
+    "extent": [
+     16060954.905907648,
+     -4996270.891043145,
+     16152679.339849858,
+     -4935121.268415004
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 3 · Cape Grim — CH₄ and N₂O (input data, panel b)",
+     "markdown": "**Input data.** Cape Grim, Tasmania, is a Southern-Hemisphere baseline station of CSIRO and the AGAGE network. Its flask and in-situ records are part of the CH₄ (1983–2019) and N₂O (1978–2019) global means plotted in panel (b).\n\nThe archived final data for WGI Figure 2.5 (CEDA, doi:10.5285/c6f19b27f8e74e98968c17c8e1f74c60) keeps the network-by-network series (NOAA, AGAGE, CSIRO, UCI, SIO) so the provenance stays visible.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "5b8de931-cdcc-4f6a-87df-359072e48c14": {
+   "name": "Stop 4 · Exeter — the global temperature record (input data, panels c & d)",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     -409655.0195013853,
+     6557857.111852231,
+     -363792.8025302795,
+     6588431.923166302
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 4 · Exeter — the global temperature record (input data, panels c & d)",
+     "markdown": "**Input data.** The observed warming in panels (c) and (d) rests on blended land–ocean temperature datasets. WGI Chapter 2 assessed **HadCRUT5** (Met Office Hadley Centre / UEA), **NOAAGlobalTemp-Interim**, **Berkeley Earth** and **Kadow et al. (2020)**; the WGI SPM.2 attribution used **HadCRUT4.6**.\n\nPre-industrial context comes from the **PAGES 2k** multi-proxy reconstruction (1–2000 CE) and a mid-Holocene (~6500 yr BP) assessment.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "502ebb5d-9d9c-4c61-ada5-2be0f1f9d792": {
+   "name": "Stop 5 · Ispra — emissions inventories (input data, panel a)",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     937533.4580788115,
+     5734666.284282602,
+     983395.6750499172,
+     5765241.095596673
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 5 · Ispra — emissions inventories (input data, panel a)",
+     "markdown": "**Input data.** Panel (a) is built from the **EDGAR v6** inventory of the EU Joint Research Centre (fossil CO₂, CH₄, N₂O, F-gases), combined with CO₂ from land-use change as the mean of three bookkeeping models (**BLUE, Houghton & Nassikas, OSCAR**) from the Global Carbon Budget.\n\nWGIII Chapter 2 authors (MCC Berlin) harmonised these into the ESSD dataset of Minx et al. (2021), archived on Zenodo (doi:10.5281/zenodo.6483002).",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "06eed28c-f57d-4e8d-8986-53ba419b0a31": {
+   "name": "Stop 6 · DKRZ Hamburg — CMIP6 input & intermediate data",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     1088037.4096313175,
+     7073474.107878726,
+     1133899.6266024234,
+     7104048.919192797
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 6 · DKRZ Hamburg — CMIP6 input & intermediate data",
+     "markdown": "**IPCC DDC — input & intermediate.** The German Climate Computing Centre hosts two DDC collections:\n\n* **IPCC-AR6_CMIP6** – the ~65,000 CMIP6 datasets (historical, ssp245, hist-nat, hist-GHG, hist-aer …) used by WGI, each with a DOI `10.26050/WDCC/AR6.*`. The model lines in WGI SPM.1 and the attribution bars in SPM.2 / SYR 2.1(d) are computed from these.\n* **IPCC-DDC_AR6_Supplements** – intermediate datasets created by IPCC authors (e.g. assessed GSAT projections, sea-level projections).\n\nNo intermediate record exists specifically for Figure 2.1; the processing chain is documented in the WGI code repositories (github.com/IPCC-WG1).",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "f1cc90f6-4409-4f07-90b7-16d07183fec3": {
+   "name": "Stop 7 · Santander — CSIC and the Interactive Atlas",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     -446390.4514631655,
+     5368652.453925205,
+     -400528.23449205974,
+     5399227.265239276
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 7 · Santander — CSIC and the Interactive Atlas",
+     "markdown": "**IPCC DDC — input & intermediate.** CSIC-IFCA hosts the WGI **Interactive Atlas** and the regional intermediate data behind it. Together with DKRZ it is the DDC's long-term archive for input and intermediate datasets.\n\nFigure 2.1 is a global figure, so the Atlas is not one of its sources, but it is where regional versions of the same observational and CMIP6 inputs can be explored.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "610dacfb-71f1-44e5-bc44-1b03cdc99c0c": {
+   "name": "Stop 8 · CEDA Harwell — WGI final figure data",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     -169204.91938791436,
+     6708175.285146543,
+     -123342.70241680862,
+     6738750.096460613
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 8 · CEDA Harwell — WGI final figure data",
+     "markdown": "**IPCC DDC — final data (WGI).** The Centre for Environmental Data Analysis archives the numbers plotted in WGI figures, under **CC BY 4.0**:\n\n* Figure SPM.1 – doi:10.5285/0b2759059ad6474098e40dad73e0a8ec (panel c)\n* Figure SPM.2 – doi:10.5285/c1eb6dad1598427f8f9f3eae346ece2f (panel d)\n* Figure 2.5 – doi:10.5285/c6f19b27f8e74e98968c17c8e1f74c60 (panel b)\n\nEach record carries a README, a licence file and a citation that must be used together with the report citation. These CSV files are bundled in this project and plotted in the notebook.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "0003ee7d-5e56-44da-9a56-f111560ea18b": {
+   "name": "Stop 9 · Palisades NY — SYR final figure data",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 12,
+    "extent": [
+     -8250777.311997989,
+     4997644.27518137,
+     -8204915.095026884,
+     5028219.08649544
+    ],
+    "content": {
+     "contentMode": "map",
+     "title": "Stop 9 · Palisades NY — SYR final figure data",
+     "markdown": "**IPCC DDC — final data (SYR).** For the Synthesis Report the final data are published through the IPCC Data Catalogue and hosted by **CIESIN / NASA SEDAC** at Columbia University:\n\n* SYR LR Figure 2.1 (c) – doi:10.7927/nq55-cr83\n* SYR LR Figure 2.1 (d) – doi:10.7927/b38b-zp83\n\nPanels (a) and (b) have no SYR-level record yet; their data are the WGIII and WGI records visited earlier. The CEDA record for the SYR collection exists but is not yet published.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  },
+  "7382df01-93cb-4051-9f2d-ce1a1fec97a5": {
+   "name": "Using the data",
+   "type": "StorySegmentLayer",
+   "visible": true,
+   "parameters": {
+    "zoom": 1.4,
+    "extent": [
+     -34478035.576546915,
+     -20223937.14614873,
+     36704425.39241239,
+     27231036.833157476
+    ],
+    "content": {
+     "contentMode": "markdown",
+     "title": "Using the data",
+     "markdown": "## How to reuse Figure 2.1 data\n\n1. **Start from the figure caption** – the `{WGI SPM.1 …}` references name the source figures.\n2. **Look up the final data** – WGI/WGII at CEDA (`10.5285/…`), WGIII at the IPCC Data Catalogue (`10.48490/…`), SYR at CIESIN/SEDAC (`10.7927/…`).\n3. **Trace inputs** – CMIP6 at DKRZ (`10.26050/WDCC/AR6.*`), observations at the originating networks.\n4. **Cite twice** – the dataset DOI *and* the report chapter.\n\nOpen the notebook `ar6_syr_fig2_1_data_story.ipynb` in this project to reproduce the four panels from the archived data.",
+     "image": ""
+    },
+    "layerOverride": [],
+    "transition": {
+     "type": "smooth",
+     "time": 2.0
+    }
+   }
+  }
+ },
+ "sources": {
+  "66842702-bae8-4ed1-b575-785f6b3e5f23": {
+   "name": "OpenStreetMap.Mapnik",
+   "type": "RasterSource",
+   "parameters": {
+    "attribution": "(C) OpenStreetMap contributors",
+    "interpolate": false,
+    "maxZoom": 19.0,
+    "minZoom": 0.0,
+    "provider": "OpenStreetMap",
+    "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    "urlParameters": {}
+   }
+  },
+  "01771f15-3b8a-43df-9cbb-3e02689f9459": {
+   "name": "Marker – IPCC Secretariat, Geneva",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#1f4e79",
+    "feature": {
+     "coords": [
+      683501.6734706997,
+      5815996.526876791
+     ]
+    }
+   }
+  },
+  "cbb0f61a-0c33-4ccb-8647-50fca164226f": {
+   "name": "Marker – Mauna Loa Observatory (NOAA GML)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#2e7d32",
+    "feature": {
+     "coords": [
+      -17318674.49550157,
+      2218167.6330078146
+     ]
+    }
+   }
+  },
+  "6db9e8e1-08ce-4a5b-a51c-3ac2ecb48809": {
+   "name": "Marker – Cape Grim Baseline Station (CSIRO / AGAGE)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#2e7d32",
+    "feature": {
+     "coords": [
+      16106817.122878753,
+      -4965696.079729075
+     ]
+    }
+   }
+  },
+  "7d1928cf-6136-4e24-b0a8-2f6be532dd6c": {
+   "name": "Marker – Met Office Hadley Centre, Exeter (HadCRUT)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#2e7d32",
+    "feature": {
+     "coords": [
+      -386723.9110158324,
+      6573144.517509267
+     ]
+    }
+   }
+  },
+  "d6a19ab6-7e89-479c-b131-619733ded8fd": {
+   "name": "Marker – JRC Ispra (EDGAR emissions database)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#2e7d32",
+    "feature": {
+     "coords": [
+      960464.5665643644,
+      5749953.689939638
+     ]
+    }
+   }
+  },
+  "7dac3e37-b472-45dd-b4db-39abd048a8d0": {
+   "name": "Marker – DKRZ, Hamburg (IPCC DDC: CMIP6 input + intermediate data)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#b26a00",
+    "feature": {
+     "coords": [
+      1110968.5181168704,
+      7088761.513535761
+     ]
+    }
+   }
+  },
+  "c315553d-0338-490f-ba6a-7d859ed44f59": {
+   "name": "Marker – CSIC-IFCA, Santander (IPCC DDC: Interactive Atlas)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#b26a00",
+    "feature": {
+     "coords": [
+      -423459.3429776126,
+      5383939.859582241
+     ]
+    }
+   }
+  },
+  "13ccb69e-af5f-4b1f-bfb9-0e9aeb5de3f0": {
+   "name": "Marker – CEDA, Harwell (IPCC DDC: WGI final figure data)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#c62828",
+    "feature": {
+     "coords": [
+      -146273.8109023615,
+      6723462.690803578
+     ]
+    }
+   }
+  },
+  "cae16825-63cb-4fca-8f36-3967f7e93541": {
+   "name": "Marker – CIESIN / SEDAC, Palisades NY (IPCC DDC: SYR final figure data)",
+   "type": "MarkerSource",
+   "parameters": {
+    "color": "#c62828",
+    "feature": {
+     "coords": [
+      -8227846.203512437,
+      5012931.680838405
+     ]
+    }
+   }
+  }
+ },
+ "stories": {
+  "d07c6ca0-cd3d-4254-94c2-39382fab0853": {
+   "title": "IPCC AR6 SYR Figure 2.1 – the data journey",
+   "storyType": "guided",
+   "presentationBgColor": "#0b2545",
+   "presentationTextColor": "#eef4ed",
+   "showGradient": true,
+   "storySegments": [
+    "eedc32ac-6ba2-46b5-b7ea-6999e0b15673",
+    "e08f796b-bacd-4103-a242-bbf2828a054c",
+    "4e0c6178-e2d7-4910-8c11-d9742a0cdb62",
+    "6c20cb6f-17f6-4fe6-b4e2-e1b8943a3452",
+    "5b8de931-cdcc-4f6a-87df-359072e48c14",
+    "502ebb5d-9d9c-4c61-ada5-2be0f1f9d792",
+    "06eed28c-f57d-4e8d-8986-53ba419b0a31",
+    "f1cc90f6-4409-4f07-90b7-16d07183fec3",
+    "610dacfb-71f1-44e5-bc44-1b03cdc99c0c",
+    "0003ee7d-5e56-44da-9a56-f111560ea18b",
+    "7382df01-93cb-4051-9f2d-ce1a1fec97a5"
+   ]
+  }
+ },
+ "options": {
+  "bearing": 0.0,
+  "pitch": 0.0,
+  "projection": "EPSG:3857",
+  "longitude": 10.0,
+  "latitude": 30.0,
+  "zoom": 1.4,
+  "extent": [
+   -34478035.576546915,
+   -20223937.14614873,
+   36704425.39241239,
+   27231036.833157476
+  ]
+ },
+ "viewState": {},
+ "metadata": {
+  "description": "Story map of the data behind IPCC AR6 SYR Longer Report Figure 2.1",
+  "generated_by": "scripts/build_storymap.py"
+ }
+}

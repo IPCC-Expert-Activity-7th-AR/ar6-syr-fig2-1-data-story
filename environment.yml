@@ -1,0 +1,10 @@
+name: ipcc-ar6-syr-fig2-1
+channels:
+  - https://prefix.dev/emscripten-forge-4x
+  - https://prefix.dev/conda-forge
+dependencies:
+  - xeus-python      # Python kernel compiled to WebAssembly
+  - numpy
+  - pandas
+  - matplotlib
+  - jupytergis-lite  # opens the .jGIS story map in JupyterLite

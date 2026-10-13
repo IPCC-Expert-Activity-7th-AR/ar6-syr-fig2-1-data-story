@@ -1,0 +1,75 @@
+name: Build and deploy JupyterLite site (GitHub Pages)
+
+# Second, fully self-hosted way to open the story: a static JupyterLite build
+# (same xeus-python environment as notebook.link) with the Specta presentation
+# app, published to GitHub Pages. Direct links then work without any account:
+#   https://<org>.github.io/<repo>/specta/?path=storymap/ipcc_ar6_data_journey.jGIS
+#   https://<org>.github.io/<repo>/specta/?path=ar6_syr_fig2_1_data_story.ipynb
+#   https://<org>.github.io/<repo>/lab/?path=storymap/ipcc_ar6_data_journey.jGIS
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['*']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages (enables Pages with the Actions source on first run)
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Install build environment (micromamba)
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: .github/build-environment.yml
+          cache-environment: true
+
+      - name: Assemble site contents
+        shell: bash -l {0}
+        run: |
+          mkdir -p content/storymap
+          cp ar6_syr_fig2_1_data_story.ipynb README.md content/
+          cp -r data content/data
+          cp storymap/ipcc_ar6_data_journey.jGIS content/storymap/
+
+      - name: Build the JupyterLite site
+        shell: bash -l {0}
+        run: |
+          jupyter lite build --contents content --output-dir dist \
+            --XeusAddon.environment_file=environment.yml \
+            --LiteBuildConfig.apps=lab --LiteBuildConfig.apps=notebooks --LiteBuildConfig.apps=specta
+          cp jupyter-lite.json dist/jupyter-lite.json || true
+          touch dist/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -51,7 +51,8 @@ jobs:
           jupyter lite build --contents content --output-dir dist \
             --XeusAddon.environment_file=environment.yml \
             --LiteBuildConfig.apps=lab --LiteBuildConfig.apps=notebooks --LiteBuildConfig.apps=specta
-          cp jupyter-lite.json dist/jupyter-lite.json || true
+          # NOTE: jupyter-lite.json in the repo root is picked up by the build and merged
+          # with the generated config (federated extensions, xeus kernels); do not overwrite it.
           touch dist/.nojekyll
 
       - name: Upload Pages artifact

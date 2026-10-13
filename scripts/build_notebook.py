@@ -83,7 +83,7 @@ exist only for panels (c) and (d); for (a) and (b) one must go back to the WGIII
 """)
 
 md(r"""
-## 2 · How the IPCC manages data: three tiers, four DDC partners
+## 1b · How the IPCC manages data: three tiers, four DDC partners
 
 The IPCC Data Distribution Centre (DDC, [ipcc-data.org](https://ipcc-data.org)) is run by **DKRZ** (Germany), **CSIC-IFCA** (Spain),
 **CIESIN** (Columbia University, USA) and **MetadataWorks** (UK), with **CEDA** (UK) as the archive for WGI/WGII figure data.
@@ -95,11 +95,26 @@ For AR6 the DDC classifies data as:
 | **Intermediate data** | Products created by authors while processing inputs (ensemble statistics, assessed ranges, regridded fields) | **DKRZ** (`IPCC-DDC_AR6_Supplements`), **CSIC** (Interactive Atlas), selected WGI figures at **CEDA** |
 | **Final data** | The numbers actually plotted in a published figure | WGI/WGII: **CEDA** (`10.5285/…`, CC BY 4.0); WGIII: **IPCC Data Catalogue / MetadataWorks** (`10.48490/…`); SYR: **CIESIN-SEDAC** (`10.7927/…`) |
 
-The next sections walk through each tier for Figure 2.1.
+### Data status for Figure 2.1 at a glance (checked 2026-10-13)
+
+`AVAILABLE` bundled in this project · `ONLINE` published, link only · `PARTIAL` exists but incomplete / unverified · `MISSING` no record
+
+| Step | Archive | (a) emissions | (b) concentrations | (c) temperature | (d) attribution |
+|---|---|---|---|---|---|
+| **1 Report** | ipcc.ch Figure 2.1 | `ONLINE` | `ONLINE` | `ONLINE` | `ONLINE` |
+| **2 Input** | DKRZ `IPCC-AR6_CMIP6` (65 118 CMIP6 datasets) | – | – | `ONLINE` historical+ssp245, hist-nat | `ONLINE` DAMIP hist-GHG/aer/nat |
+| **2 Input** | originating institutions | `ONLINE` EDGAR v6, GCB bookkeeping, Zenodo 10.5281/zenodo.6483002 | `ONLINE` NOAA, SIO, CSIRO, AGAGE, UCI | `ONLINE` HadCRUT5, NOAA, Berkeley Earth, Kadow; PAGES 2k | `ONLINE` HadCRUT4.6 |
+| **3 Intermediate** | DKRZ `IPCC-DDC_AR6_Supplements`, CEDA, CSIC | `PARTIAL` no record (processed table = Zenodo workbook) | `PARTIAL` per-network means inside final file | `PARTIAL` CMIP6 ensemble statistics inside final file | `PARTIAL` assessed ranges inside final file |
+| **4 Final (WG)** | CEDA / IPCC Data Catalogue | `AVAILABLE`* WGIII SPM.1 10.48490/vfxm-tm28 | `AVAILABLE` WGI Fig 2.5 10.5285/c6f19b27… | `AVAILABLE` WGI SPM.1 v20221116 10.5285/0b275905… | `AVAILABLE` WGI SPM.2 v20210809 10.5285/c1eb6dad… |
+| **4 Final (SYR)** | CIESIN / SEDAC via IPCC Data Catalogue | `MISSING` | `MISSING` | `PARTIAL` 10.7927/nq55-cr83 (xlsx to fetch) | `PARTIAL` 10.7927/b38b-zp83 (xlsx to fetch, DOI to verify) |
+
+\\* rebuilt from the open Zenodo source because the catalogue site is browser-only.
+
+The next sections walk through each step for Figure 2.1; the story map `storymap/ipcc_ar6_data_journey.jGIS` presents the same chain stop by stop.
 """)
 
 md(r"""
-## 3 · Input data — where the raw numbers come from
+## 2 · Input data — where the raw numbers come from
 
 ### Panel (a): emissions inventories
 * **EDGAR v6.0** (EU Joint Research Centre): fossil CO₂, CH₄, N₂O and F-gases by country and sector.
@@ -127,7 +142,7 @@ Full tables with links: [`data/input/README.md`](data/input/README.md).
 """)
 
 md(r"""
-## 4 · Intermediate data — the processing layer
+## 3 · Intermediate data — the processing layer
 
 For most AR6 WGI figures, intermediate products (ensemble means, regional aggregates, assessed ranges) are archived at
 **DKRZ** in the project [`IPCC-DDC_AR6_Supplements`](https://www.wdc-climate.de/ui/project?acronym=IPCC-DDC_AR6_Supplements)
@@ -144,7 +159,7 @@ The *code* that turned inputs into these numbers is public: WGI figure repositor
 """)
 
 md(r"""
-## 5 · Final data — the records you can download today
+## 4 · Final data — the records you can download today
 
 | Panel | Record | DOI | Host | Licence | In this project |
 |---|---|---|---|---|---|
@@ -204,7 +219,7 @@ print("helper ready")
 """, show_source="Yes", size="Small")
 
 md(r"""
-### 5a · Panel (a) — Global net anthropogenic GHG emissions, 1990–2019
+### 4a · Panel (a) — Global net anthropogenic GHG emissions, 1990–2019
 
 Rebuilt from the Minx et al. (2021) workbook (the input to WGIII Figure SPM.1): global totals by gas in Gt CO₂-eq yr⁻¹ using AR6 GWP100,
 CO₂-LULUCF as the three-model mean. WGIII reported **59 ± 6.6 Gt CO₂-eq in 2019**, 12 % above 2010 and 54 % above 1990.
@@ -241,7 +256,7 @@ print("2019 shares (%):", share.to_dict())
 """)
 
 md(r"""
-### 5b · Panel (b) — Atmospheric concentrations of CO₂, CH₄ and N₂O
+### 4b · Panel (b) — Atmospheric concentrations of CO₂, CH₄ and N₂O
 
 From the CEDA record for WGI Figure 2.5 (NOAA GML series shown; the file also holds SIO, CSIRO, AGAGE and UCI).
 As in the SYR figure, the **height of each sub-panel is scaled to the gas's assessed contribution to warming** (1850–1900 → 2010–2019),
@@ -285,7 +300,7 @@ for gas in ["CO2", "CH4", "N2O"]:
 """)
 
 md(r"""
-### 5c · Panel (c) — Global surface temperature change since 1850–1900
+### 4c · Panel (c) — Global surface temperature change since 1850–1900
 
 From the CEDA record for WGI Figure SPM.1: the annual observed series (Chapter 2 assessed mean) and the decadally smoothed curve,
 with the assessed temperature of the **warmest multi-century period in at least the last 100 000 years (~6500 years ago)** shown as a bar.
@@ -325,7 +340,7 @@ print("Mid-Holocene very likely range: {:.1f}–{:.1f} °C".format(holo_lo, holo
 """)
 
 md(r"""
-### 5d · Panel (d) — Humans are responsible
+### 4d · Panel (d) — Humans are responsible
 
 From the CEDA record for WGI Figure SPM.2 panel (b): warming 1850–1900 → 2010–2019 observed (HadCRUT4.6) and attributed to each driver
 from CMIP6 DAMIP simulations. Bars are the best estimate (total human influence) or mid-point of the likely range; whiskers are the **likely** range.
@@ -361,7 +376,7 @@ plt.tight_layout(); plt.show()
 """)
 
 md(r"""
-### 5e · The whole chain in one view
+### 4e · The whole chain in one view
 
 Putting the four redrawn panels together reproduces the logic of SYR Figure 2.1 from open data alone.
 """)
@@ -401,7 +416,7 @@ plt.show()
 """)
 
 md(r"""
-## 6 · The SYR-level records (to be completed)
+## 4f · The SYR-level records (to be completed)
 
 The IPCC Data Catalogue holds SYR-level copies of panels (c) and (d), hosted by CIESIN/SEDAC as Excel workbooks:
 
@@ -423,7 +438,7 @@ else:
 """, show_source="Yes", size="Small")
 
 md(r"""
-## 7 · How to use the data yourself
+## 5 · How to use the data yourself
 
 1. **Start from the caption.** The `{WGI SPM.1 …}` tag names the source figures; every AR6 figure page on ipcc.ch carries one.
 2. **Find the final data record.**

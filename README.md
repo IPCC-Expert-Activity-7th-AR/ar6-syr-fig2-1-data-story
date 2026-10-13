@@ -15,7 +15,7 @@ Audience: policy analysts and data practitioners. Language: English.
 | Path | What it is | How to open on notebook.link |
 |---|---|---|
 | `ar6_syr_fig2_1_data_story.ipynb` | The data story: narrative + live reproduction of the four panels from archived final data (pandas + matplotlib, runs in the browser) | double-click in the file browser, or right-click → **Open With → Specta** for the article view |
-| `storymap/ipcc_ar6_data_journey.jGIS` | JupyterGIS **Story Map**: 11 guided stops at the observatories, inventories and DDC archives behind the figure | double-click (JupyterGIS editor) → **Preview Mode**, or right-click → **Open With → Specta** for full-screen presentation |
+| `storymap/ipcc_ar6_data_journey.jGIS` | JupyterGIS **Story Map**: 20 guided stops organised as **Step 1 report → Step 2 input → Step 3 intermediate → Step 4 final data**, each with catalogue record, DOI, version, files, licence and an availability flag (`AVAILABLE` / `ONLINE` / `PARTIAL` / `MISSING`), ending with a status dashboard | double-click (JupyterGIS editor) → **Preview Mode**, or right-click → **Open With → Specta** for full-screen presentation |
 | `data/final/…` | Unmodified copies of the CEDA records for WGI Fig SPM.1, SPM.2, Fig 2.5 (+ README/licence), and a CSV rebuilt from the Zenodo source of WGIII Fig SPM.1 | read by the notebook |
 | `data/input/README.md`, `data/intermediate/README.md` | Detailed provenance of the input tier (EDGAR, bookkeeping models, NOAA/SIO/CSIRO/AGAGE/UCI, HadCRUT5 …, CMIP6 at DKRZ) and the intermediate tier (DKRZ `IPCC-DDC_AR6_Supplements`, CEDA, code on GitHub/Zenodo) | documentation |
 | `data/PROVENANCE.md` | One table of every record, version, DOI, host, licence, plus citation templates | documentation |
